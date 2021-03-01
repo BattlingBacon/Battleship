@@ -17,7 +17,14 @@
       <Configuration>Release</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
+<<<<<<< Updated upstream
 
+=======
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\NetworkFunctions.cpp" />
+    <ClCompile Include="src\Source.cpp" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
