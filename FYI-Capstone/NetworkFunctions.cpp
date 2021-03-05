@@ -8,7 +8,11 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <thread>
+
+using namespace std;
+
+void showGrid(string a[10][10]);
+void setupShips(string a[10][10], bool);
 
 #pragma comment (lib, "Ws2_32.lib")
 #pragma comment (lib, "Mswsock.lib")
@@ -19,7 +23,6 @@
 
 #undef UNICODE
 
-using namespace std;
 
 #define PORT "27010"
 
@@ -120,7 +123,7 @@ int __cdecl WinsockSend(string userStr, int messageLength, string ip)
 
 
 
-int __cdecl WinsockRecieve()
+int __cdecl WinsockRecieve(string &recievedStr)
 {
     char signalRecieved[200] = " ";
     string recievedText = "";
@@ -233,7 +236,7 @@ int __cdecl WinsockRecieve()
         if (int(recievedText.at(i)) >= 127 || int(recievedText.at(i)) <= 19)
             recievedText.erase(i);
 
-    cout << "Recieved: " << recievedText << endl;
+    recievedStr = recievedText;
     log << "Recieved: " << recievedText << endl;
     for (int i = 0; i < recievedText.length(); i++)
         signalRecieved[i] = '\0';
@@ -261,29 +264,48 @@ int __cdecl WinsockRecieve()
     return 0;
 }
 
-void controlRecieve()
+void multiplayer()
 {
-    while (true)
+    string playerArr[10][10];
+    setupShips(playerArr, false);
+    string hostIP = "";
+    string clientIP = "";
+    string recievedText = "";
+
+    bool host = false;
+
+    char choice = '\0';
+    cout << "Host? (Y/N):: ";
+    cin >> choice;
+    while (choice != 'Y' && choice != 'N')
     {
-        thread threadTwo(WinsockRecieve);
-        threadTwo.join();
+        cout << "Invalid! Host? (Y/N):: ";
+        cin >> choice;
     }
-}
-
-void initNet(string ip)
-{
-    system("ipconfig");
-    cout << endl << endl << "The above text is your IP information. You need to tell the other player your IPv4, and you need theirs. What is the other player's IPv4?";
-    cin >> ip;
-    string str = "";
-
-    WinsockSend("$CONNECTED", str.length(), ip);
-
-    thread threadOne(controlRecieve);
-    cout << "Couldn't connect to anyone, hosting own session" << endl;
-    while (true)
+    if (choice == 'Y')
     {
-        getline(cin, str);
-        WinsockSend(str, str.length(), ip);
+        host = true;
+        system("ipconfig");
+        cout << endl << endl << "The above text is your IP information. Tell the other player your IPv4 address. Waiting for them to connect...";
+        WinsockRecieve(recievedText);
+        clientIP = recievedText;
+        system("CLS");
     }
+    else if (choice == 'N')
+    {
+        host = false;
+        system("ipconfig");
+        cout << endl << endl << "The above text is your IP information. What is your IPv4 address: ";
+        cin >> clientIP;
+        system("CLS");
+
+        cout << "Have the host tell you their IP. What is the host's IP: ";
+        cin >> hostIP;
+
+        while (WinsockSend(clientIP, clientIP.length(), hostIP))
+
+        system("CLS");
+    }
+
+    cout << "Host IP: " << hostIP << endl << "Client IP: " << clientIP;
 }

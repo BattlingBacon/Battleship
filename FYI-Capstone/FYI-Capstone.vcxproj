@@ -22,6 +22,7 @@
     <ClCompile Include="NetworkFunctions.cpp" />
     <ClCompile Include="ShipPlacement.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Singleplayer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
