@@ -364,11 +364,15 @@ void multiplayer()
             ss >> x;
             ss >> y;
 
-            if (playerArr[x][y] != "")
+            if (playerArr[x][y] == "")
+            {
                 WinsockSend("x ", 2, clientIP);
+                playerArr[x][y] == "x ";
+            }
             else
             {
                 WinsockSend("XX", 2, clientIP);
+                playerArr[x][y] == "XX";
                 hits++;
             }
 
@@ -392,11 +396,15 @@ void multiplayer()
             ss >> x;
             ss >> y;
 
-            if (playerArr[x][y] != "")
+            if (playerArr[x][y] == "")
+            {
                 WinsockSend("x ", 2, hostIP);
+                playerArr[x][y] == "x ";
+            }
             else
             {
                 WinsockSend("XX", 2, hostIP);
+                playerArr[x][y] == "XX";
                 hits++;
             }
 
