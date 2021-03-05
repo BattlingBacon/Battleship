@@ -29,7 +29,7 @@ int main()
 {
 	srand(time(NULL));
 
-	setupShips(playerArr, false);
+	setupShips(playerArr, true);
 	setupShips(botArr, true);
 
 	system("CLS");
@@ -72,7 +72,7 @@ int main()
 					botArr[x][y] = "x ";
 				else
 				{
-					turn = false;
+					botArr[x][y] = "XX";
 					hitBot++;
 				}
 				turn = false;
