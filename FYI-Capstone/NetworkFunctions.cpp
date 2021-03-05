@@ -270,7 +270,7 @@ void multiplayer()
 {
     string otherPlayerArr[10][10];
     string playerArr[10][10];
-    setupShips(playerArr, true);
+    setupShips(playerArr, false);
     string hostIP = "";
     string clientIP = "";
     string recievedText = "";
