@@ -8,11 +8,13 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
 void showGrid(string a[10][10]);
 void setupShips(string a[10][10], bool);
+void showHostileGrid(string a[10][10]);
 
 #pragma comment (lib, "Ws2_32.lib")
 #pragma comment (lib, "Mswsock.lib")
@@ -266,12 +268,14 @@ int __cdecl WinsockRecieve(string &recievedStr)
 
 void multiplayer()
 {
+    string otherPlayerArr[10][10];
     string playerArr[10][10];
-    setupShips(playerArr, false);
+    setupShips(playerArr, true);
     string hostIP = "";
     string clientIP = "";
     string recievedText = "";
 
+    char turn = '\0';
     bool host = false;
 
     char choice = '\0';
@@ -284,6 +288,7 @@ void multiplayer()
     }
     if (choice == 'Y')
     {
+        hostIP = "N/A";
         host = true;
         system("ipconfig");
         cout << endl << endl << "The above text is your IP information. Tell the other player your IPv4 address. Waiting for them to connect...";
@@ -307,5 +312,130 @@ void multiplayer()
         system("CLS");
     }
 
-    cout << "Host IP: " << hostIP << endl << "Client IP: " << clientIP;
+    int x = 0;
+    int y = 0;
+    bool playing = true;
+    bool playerWin = false;
+    bool retry = true;
+    int hits = 0;
+    string final = "";
+
+    if (host)
+    {
+        while (playing)
+        {
+            showHostileGrid(otherPlayerArr);
+            cout << endl << "==========================" << endl << endl;
+            showGrid(playerArr);
+            cout << endl;
+
+            cout << "Fire at (x y): ";
+            cin >> x;
+            cin >> y;
+            while (retry)
+            {
+                while (x > 10 || x < 1 || y < 1 || y > 10)
+                {
+                    cout << "Error! Fire at (x y): ";
+                    cin >> x;
+                    cin >> y;
+                }
+
+                y--;
+                x--;
+
+                if (otherPlayerArr[x][y] != "XX" && otherPlayerArr[x][y] != "x ")
+                {
+                    retry = false;
+                    cout << "You've already fired there!" << endl;
+                }
+            }
+
+            final = to_string(x) + " " + to_string(y);
+
+            WinsockSend(final, final.length(), clientIP);
+            WinsockRecieve(recievedText);
+            otherPlayerArr[x][y] = recievedText;
+            
+            WinsockRecieve(recievedText);
+
+            stringstream ss;
+            ss << recievedText;
+            ss >> x;
+            ss >> y;
+
+            if (playerArr[x][y] != "")
+                WinsockSend("x ", 2, clientIP);
+            else
+            {
+                WinsockSend("XX", 2, clientIP);
+                hits++;
+            }
+
+            if (hits >= 17)
+            {
+                cout << "You won!";
+                playing = false;
+            }
+        }
+    }
+
+    if (!host)
+    {
+        while (playing)
+        {
+            WinsockRecieve(recievedText);
+            stringstream ss;
+            ss << recievedText;
+            ss >> x;
+            ss >> y;
+
+            if (playerArr[x][y] != "")
+                WinsockSend("x ", 2, clientIP);
+            else
+            {
+                WinsockSend("XX", 2, clientIP);
+                hits++;
+            }
+
+            if (hits >= 17)
+            {
+                cout << "You won!";
+                playing = false;
+            }
+
+            showHostileGrid(otherPlayerArr);
+            cout << endl << "==========================" << endl << endl;
+            showGrid(playerArr);
+            cout << endl;
+
+            cout << "Fire at (x y): ";
+            cin >> x;
+            cin >> y;
+            while (retry)
+            {
+                while (x > 10 || x < 1 || y < 1 || y > 10)
+                {
+                    cout << "Error! Fire at (x y): ";
+                    cin >> x;
+                    cin >> y;
+                }
+
+                y--;
+                x--;
+
+                if (otherPlayerArr[x][y] != "XX" && otherPlayerArr[x][y] != "x ")
+                {
+                    retry = false;
+                    cout << "You've already fired there!" << endl;
+                }
+            }
+
+            final = to_string(x) + " " + to_string(y);
+
+            WinsockSend(final, final.length(), clientIP);
+            WinsockRecieve(recievedText);
+            otherPlayerArr[x][y] = recievedText;
+        }
+    }
 }
