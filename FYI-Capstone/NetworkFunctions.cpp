@@ -377,7 +377,6 @@ void multiplayer()
                 system("CLS");
                 cout << "You won!";
                 playing = false;
-                return 0;
             }
         }
     }
@@ -406,7 +405,6 @@ void multiplayer()
                 system("CLS");
                 cout << "You won!";
                 playing = false;
-                return 0;
             }
 
             showHostileGrid(otherPlayerArr);
