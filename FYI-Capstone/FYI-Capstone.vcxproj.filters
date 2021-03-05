@@ -15,10 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\FYI-Capstone old\FYI-Capstone\src\NetworkFunctions.cpp">
+    <ClCompile Include="NetworkFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\FYI-Capstone old\FYI-Capstone\src\Source.cpp">
+    <ClCompile Include="ShipPlacement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
