@@ -344,7 +344,7 @@ void multiplayer()
                 y--;
                 x--;
 
-                if (otherPlayerArr[x][y] == "XX" && otherPlayerArr[x][y] == "x ")
+                if (!(otherPlayerArr[x][y] == "XX" || otherPlayerArr[x][y] == "x "))
                 {
                     retry = false;
                     cout << "You've already fired there!" << endl;
@@ -424,7 +424,7 @@ void multiplayer()
                 y--;
                 x--;
 
-                if (otherPlayerArr[x][y] == "XX" && otherPlayerArr[x][y] == "x ")
+                if (!(otherPlayerArr[x][y] == "XX" || otherPlayerArr[x][y] == "x "))
                 {
                     retry = false;
                     cout << "You've already fired there!" << endl;
