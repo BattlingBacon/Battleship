@@ -324,6 +324,7 @@ void multiplayer()
     {
         while (playing)
         {
+            system("CLS");
             showHostileGrid(otherPlayerArr);
             cout << endl << "==========================" << endl << endl;
             showGrid(playerArr);
@@ -358,7 +359,6 @@ void multiplayer()
             otherPlayerArr[x][y] = recievedText;
             
             WinsockRecieve(recievedText);
-
             stringstream ss;
             ss << recievedText;
             ss >> x;
@@ -374,8 +374,10 @@ void multiplayer()
 
             if (hits >= 17)
             {
+                system("CLS");
                 cout << "You won!";
                 playing = false;
+                return 0;
             }
         }
     }
@@ -384,6 +386,7 @@ void multiplayer()
     {
         while (playing)
         {
+            system("CLS");
             WinsockRecieve(recievedText);
             stringstream ss;
             ss << recievedText;
@@ -391,17 +394,19 @@ void multiplayer()
             ss >> y;
 
             if (playerArr[x][y] != "")
-                WinsockSend("x ", 2, clientIP);
+                WinsockSend("x ", 2, hostIP);
             else
             {
-                WinsockSend("XX", 2, clientIP);
+                WinsockSend("XX", 2, hostIP);
                 hits++;
             }
 
             if (hits >= 17)
             {
+                system("CLS");
                 cout << "You won!";
                 playing = false;
+                return 0;
             }
 
             showHostileGrid(otherPlayerArr);
@@ -433,7 +438,7 @@ void multiplayer()
 
             final = to_string(x) + " " + to_string(y);
 
-            WinsockSend(final, final.length(), clientIP);
+            WinsockSend(final, final.length(), hostIP);
             WinsockRecieve(recievedText);
             otherPlayerArr[x][y] = recievedText;
         }
