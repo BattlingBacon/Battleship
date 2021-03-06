@@ -390,6 +390,11 @@ void multiplayer()
         while (playing)
         {
             system("CLS");
+            showHostileGrid(otherPlayerArr);
+            cout << endl << "==========================" << endl << endl;
+            showGrid(playerArr);
+            cout << endl;
+            
             WinsockRecieve(recievedText);
             stringstream ss;
             ss << recievedText;
@@ -415,6 +420,7 @@ void multiplayer()
                 playing = false;
             }
 
+            system("CLS");
             showHostileGrid(otherPlayerArr);
             cout << endl << "==========================" << endl << endl;
             showGrid(playerArr);

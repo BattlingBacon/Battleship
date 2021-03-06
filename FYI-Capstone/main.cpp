@@ -1,9 +1,16 @@
+// sources:
+// USS Iowa: https://ascii.co.uk/art/battleship
+// text to ascii: https://www.patorjk.com/
+
 #include <cstdlib>
 #include <iostream>
 #include <string>
 #include <stdlib.h>
 #include <time.h>
 #include <iomanip>
+#include <Windows.h>
+#include <fstream>
+
 
 using namespace std;
 
@@ -22,15 +29,30 @@ void singleplayer();
 
 int main()
 {
+	ifstream inFile;
+	inFile.open("title.txt");
+
+	string paste = "";
+	for (int i = 0; i < 19; i++)
+	{
+		getline(inFile, paste);
+		cout << paste << endl;
+	}
+
+	cout << "                (Artwork by Matthew Bace)" << endl;
+
+	PlaySound(L"anchorsaweigh.wav", NULL, SND_ASYNC);
+
+
 	char choice = '\0';
-	cout << "Singleplayer or multiplayer (S/M): ";
+	cout << "\nSingleplayer or multiplayer? (S/M): ";
 	cin >> choice;
 	while (choice != 'S' && choice != 'M')
 	{
 		cout << "Invalid! Singleplayer or multiplayer (S/M): ";
 		cin >> choice;
 	}
-
+	PlaySound(NULL, 0, 0);
 	system("CLS");
 
 	if (choice == 'S')
