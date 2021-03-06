@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <mmsystem.h>
 
 using namespace std;
 
@@ -389,6 +390,7 @@ void multiplayer()
     {
         while (playing)
         {
+            PlaySound(L"kombat.wav", NULL, SND_ASYNC);
             system("CLS");
             showHostileGrid(otherPlayerArr);
             cout << endl << "==========================" << endl << endl;

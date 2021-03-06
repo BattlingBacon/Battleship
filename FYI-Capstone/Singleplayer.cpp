@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iomanip>
+#include <windows.h>
 
 using namespace std;
 
@@ -51,6 +52,7 @@ void singleplayer()
 
 	while (playing)
 	{
+		PlaySound(L"kombat.wav", NULL, SND_ASYNC);
 		while (turn)
 		{
 			showHostileGrid(botArr);
