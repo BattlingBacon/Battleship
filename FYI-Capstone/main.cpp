@@ -1,7 +1,3 @@
-// sources:
-// USS Iowa: https://ascii.co.uk/art/battleship
-// text to ascii: https://www.patorjk.com/
-
 #include <cstdlib>
 #include <iostream>
 #include <string>
