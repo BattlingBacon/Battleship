@@ -37,8 +37,9 @@ int main()
 
 void displaySplash()
 {
-	bool run = true;
+	//bool run = true;
 	char choice = '\0';
+	/*
 	thread input(getInput, ref(choice));
 	ifstream inFile;
 	inFile.open("titlesplash.txt");
@@ -92,7 +93,6 @@ void displaySplash()
 			cout << splash3;
 
 		cout << "\n\n\n Singleplayer or multiplayer? (S/M): ";
-
 		if (choice == 'S' || choice == 'M')
 		{
 			input.detach();
@@ -102,6 +102,12 @@ void displaySplash()
 		option++;
 		if (option > 11)
 			option = 0;
+		system("CLS");
+	}*/
+	while (choice != 'S' && choice != 'M')
+	{
+		cout << "\n\n\n Singleplayer or multiplayer? (S/M): ";
+		cin >> choice;
 		system("CLS");
 	}
 
