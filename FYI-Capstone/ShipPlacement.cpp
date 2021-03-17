@@ -93,7 +93,6 @@ void showGrid(string gridArr[][10])
 
 void setupShips(string gridArr[][10], bool bot)
 {
-    PlaySound(L"buildmode.wav", NULL, SND_ASYNC);
     static int hasRun = time(NULL);
     srand(time(NULL) + hasRun);
     hasRun /= 2;
@@ -215,5 +214,4 @@ void setupShips(string gridArr[][10], bool bot)
             run = false;
         }
     }
-    PlaySound(NULL, 0, 0);
 }

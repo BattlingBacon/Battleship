@@ -390,7 +390,6 @@ void multiplayer()
     {
         while (playing)
         {
-            PlaySound(L"kombat.wav", NULL, SND_ASYNC);
             system("CLS");
             showHostileGrid(otherPlayerArr);
             cout << endl << "==========================" << endl << endl;
